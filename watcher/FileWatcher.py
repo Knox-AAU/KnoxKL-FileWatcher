@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import time
+import os
 
 from watchdog.observers import Observer
-from os import path
 
 class FileWatcher:
     """
@@ -30,9 +30,9 @@ class FileWatcher:
         Runnable method that starts the watcher.
         """
 
-        assert self.__watch_dir__ != "DOES NOT EXIST"
-        assert path.exists(self.__watch_dir__)
-
+        if (self.__watch_dir__ == 'DOES NOT EXIST' or not os.path.exists(self.__watch_dir__)):
+            raise FileNotFoundError('Watcher unable to run as no directory was provided or it did not exist', self.__watch_dir__)
+        
         self.handler = handler
 
         print(f'Watching directory \'{self.__watch_dir__}\' for new publication files')
@@ -46,9 +46,9 @@ class FileWatcher:
         except KeyboardInterrupt:
             self.observer.stop()
             print("Watcher stopped successfully")
-        except:
+        except Exception as e:
             self.observer.stop()
-            print("Watcher stopped unexpectedly")
+            print("Watcher stopped unexpectedly:", e)
 
         self.observer.join()
 

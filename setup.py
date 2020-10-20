@@ -7,7 +7,7 @@ setuptools.setup(
     name='Knox-FileWatcher',
     version='0.0.1',
     author='Knox-18',
-    author_email='sample@student.aau.dk',
+    author_email='meriks18@student.aau.dk',
     description='File watcher for knox repo',
     long_description=long_description,
     long_description_content_type='text/markdown',
